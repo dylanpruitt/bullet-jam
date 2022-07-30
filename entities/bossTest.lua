@@ -38,7 +38,7 @@ Boss = BasicAI:new()
 
 function Boss:new (x, y)
   local entity = BasicAI:new(x, y)
-  entity.name = "Boss"
+  entity.name = "Putrid Mass"
   entity.faction = "enemy"
   entity.aiState = "wait"
   entity.health = 640

@@ -46,9 +46,7 @@ function love.load(args)
   
   player = Player:new(spawnX, spawnY)
 
-  inventory = {Shotgun:new(player), BasicGun:new(player), Fling:new(player)}
-  player.equippedWeaponL = inventory[1]
-  player.equippedWeaponR = inventory[2]
+  inventory = {}
   
   table.insert(entities, player)
 
@@ -88,7 +86,8 @@ function love.keypressed(key)
     table.insert(entities, Slime:new(getMousePosition()))
   end
   if key == 'r' then
-    table.insert(entities, Sludge:new(getMousePosition()))
+    table.insert(entities, WeaponPickup:new(150,150,Shotgun:new(player)))
+    table.insert(entities, WeaponPickup:new(200,150,BasicGun:new(player)))
   end
   if key == 'p' then
     player:addStatus(SlowStatus:new(player, 150))
@@ -109,12 +108,12 @@ function love.keypressed(key)
 end
 
 love.mousepressed = function (x, y, button)
-  if button == 1 then
+  if button == 1 and player.equippedWeaponL ~= nil then
     if player.equippedWeaponL.cooldownFrames == 0 then
       player.equippedWeaponL:onFire(getMousePosition())
       player.equippedWeaponL.activeFrames = 25
     end
-  elseif button == 2 then
+  elseif button == 2 and player.equippedWeaponR ~= nil then
     if player.equippedWeaponR.cooldownFrames == 0 then
       player.equippedWeaponR:onFire(getMousePosition())
       player.equippedWeaponR.activeFrames = 25

@@ -17,13 +17,17 @@ drawUI = function ()
   local ICON_SIZE      = 32
   local EXTRA_SPACE_PX = 4
   
-  if player.equippedWeaponL.activeFrames > 0 then
-    local leftWeaponIcon = assets[player.equippedWeaponL.iconPath]
-    love.graphics.draw(leftWeaponIcon, screenRight - (ICON_SIZE * 2 + EXTRA_SPACE_PX), screenBottom - ICON_SIZE)
+  if player.equippedWeaponL ~= nil then
+    if player.equippedWeaponL.activeFrames > 0 then
+      local leftWeaponIcon = assets[player.equippedWeaponL.iconPath]
+      love.graphics.draw(leftWeaponIcon, screenRight - (ICON_SIZE * 2 + EXTRA_SPACE_PX), screenBottom - ICON_SIZE)
+    end
   end
-  if player.equippedWeaponR.activeFrames > 0 then
-    local rightWeaponIcon = assets[player.equippedWeaponR.iconPath]
-    love.graphics.draw(rightWeaponIcon, screenRight - ICON_SIZE, screenBottom - ICON_SIZE)
+  if player.equippedWeaponR ~= nil then
+    if player.equippedWeaponR.activeFrames > 0 then
+      local rightWeaponIcon = assets[player.equippedWeaponR.iconPath]
+      love.graphics.draw(rightWeaponIcon, screenRight - ICON_SIZE, screenBottom - ICON_SIZE)
+    end
   end
 end
 
@@ -44,7 +48,7 @@ renderHealthBar = function (entity, offset)
   love.graphics.setFont(font)
   
   x, y = fixedWindowPosition(5, gameHeight - (25 + offset * 20))
-  love.graphics.printf(entity.name, x, y, 50, "left")
+  love.graphics.printf(entity.name, x, y, 180, "left")
 end
 
 renderPlayerHealth = function ()
@@ -65,18 +69,26 @@ renderPlayerWeapons = function ()
     local font = love.graphics.newFont(14)
     love.graphics.setFont(font)
     love.graphics.setColor(255/255, 255/255, 255/255)
-    love.graphics.printf(player.equippedWeaponL.name, player.x - 150 + player.width / 2, player.y - 30, 200, "center")
-    love.graphics.printf(player.equippedWeaponR.name, player.x - 50 + player.width / 2, player.y - 30, 200, "center")
+    if player.equippedWeaponL ~= nil then
+      love.graphics.printf(player.equippedWeaponL.name, player.x - 150 + player.width / 2, player.y - 30, 200, "center")
+    end
+    if player.equippedWeaponR ~= nil then
+      love.graphics.printf(player.equippedWeaponR.name, player.x - 50 + player.width / 2, player.y - 30, 200, "center")
+    end
   end
 
-  local reloadTime = round(player.equippedWeaponL.cooldownFrames / FPS, 1)
-  if reloadTime > 0.1 then
-        love.graphics.printf(string.format("%.1f", reloadTime), player.x - 150 + player.width / 2, player.y - 15, 200, "center")
+  if player.equippedWeaponL ~= nil then
+    local reloadTime = round(player.equippedWeaponL.cooldownFrames / FPS, 1)
+    if reloadTime > 0.1 then
+          love.graphics.printf(string.format("%.1f", reloadTime), player.x - 150 + player.width / 2, player.y - 15, 200, "center")
+    end
   end
   
-  reloadTime = round(player.equippedWeaponR.cooldownFrames / FPS, 1)
-  if reloadTime > 0.1 then
-        love.graphics.printf(string.format("%.1f", reloadTime), player.x - 50 + player.width / 2, player.y - 15, 200, "center")
+  if player.equippedWeaponR ~= nil then
+    local reloadTime = round(player.equippedWeaponR.cooldownFrames / FPS, 1)
+    if reloadTime > 0.1 then
+          love.graphics.printf(string.format("%.1f", reloadTime), player.x - 50 + player.width / 2, player.y - 15, 200, "center")
+    end
   end
   
   local font = love.graphics.newFont(14)

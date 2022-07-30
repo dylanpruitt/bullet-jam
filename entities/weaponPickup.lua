@@ -34,8 +34,15 @@ function WeaponPickup:updateAI ()
   if self:collidingWith(player) then
     local weapon = self.equippedWeapon:new(player)
     table.insert(inventory, weapon)
-    player.equippedWeaponL = weapon
-    player.activeLeftWeaponIndex = #inventory
+    
+    if #inventory > 1 and player.equippedWeaponR == nil then
+        player.equippedWeaponR = weapon
+        player.activeRightWeaponIndex = #inventory
+    else
+      player.equippedWeaponL = weapon
+      player.activeLeftWeaponIndex = #inventory
+    end
+    
     player.switchFrames = 75
     self.health = 0
     table.insert(screenText, message)    

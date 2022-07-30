@@ -69,3 +69,5 @@ function Sludge:updateAI ()
       end  
     end
   end
+  
+  table.insert(entityConstructors, Sludge)

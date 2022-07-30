@@ -68,3 +68,5 @@ function Slime:updateAI ()
       end  
     end
   end
+  
+  table.insert(entityConstructors, Slime)

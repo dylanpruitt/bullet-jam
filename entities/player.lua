@@ -18,8 +18,8 @@ function Player:new (x, y)
   player.activeLeftWeaponIndex  = 1
   player.activeRightWeaponIndex = 1
   player.switchFrames           = 0
-  player.equippedWeaponL        = Shotgun:new(player)
-  player.equippedWeaponR        = Shotgun:new(player)
+  player.equippedWeaponL        = nil
+  player.equippedWeaponR        = nil
   setmetatable(player, self)
   self.__index = self
   return player
@@ -40,8 +40,8 @@ function Player:updateWeapons ()
     inventory[i]:update()
   end
   
-  player.equippedWeaponL:update()
-  player.equippedWeaponR:update()
+  if player.equippedWeaponL ~= nil then player.equippedWeaponL:update() end
+  if player.equippedWeaponR ~= nil then player.equippedWeaponR:update() end
 end
 
 function Player:updateKeyInput ()
@@ -95,12 +95,12 @@ function Player:updateKeyInput ()
 end
 
 function Player:updateMouseInput ()
-  if love.mouse.isDown(1) then
+  if love.mouse.isDown(1) and self.equippedWeaponL ~= nil then
     self.equippedWeaponL:onHold(getMousePosition())
     if self.equippedWeaponL.cooldownFrames > 0 then self.equippedWeaponL.activeFrames = 25 end
   end
   
-  if love.mouse.isDown(2) then
+  if love.mouse.isDown(2) and self.equippedWeaponR ~= nil then
     self.equippedWeaponR:onHold(getMousePosition())
     if self.equippedWeaponL.cooldownFrames > 0 then self.equippedWeaponL.activeFrames = 25 end
   end
