@@ -62,6 +62,8 @@ function BossDoppleganger:new (x, y)
   entity.height = 8
   entity.imagePath = "images/entities/evil-player.png"
   entity.equippedWeapon = BurstFire:new(entity, seconds(1.0))
+  entity.isBoss = true
+
   
   table.insert(entity.extraWeapons, SuperShotgun:new(entity))
   table.insert(entity.extraWeapons, FloaterWeapon:new(entity, seconds(3.0)))

@@ -12,8 +12,8 @@ function Player:new (x, y)
   player.health                 = 250
   player.maxHealth              = 250
   player.speedCap               = 2
-  player.width                  = 6
-  player.height                 = 8
+  player.width                  = 8
+  player.height                 = 10
   player.imagePath              = "images/entities/player.png"
   player.activeLeftWeaponIndex  = 1
   player.activeRightWeaponIndex = 1

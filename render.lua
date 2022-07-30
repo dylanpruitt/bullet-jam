@@ -27,13 +27,13 @@ drawUI = function ()
   end
 end
 
-renderHealthBar = function (entity)
+renderHealthBar = function (entity, offset)
   love.graphics.setCanvas()
   local healthPercent = entity.health / entity.maxHealth
   
   love.graphics.setColor(75/255, 75/255, 75/255)
   
-  local x, y = fixedWindowPosition(5, gameHeight - 10)
+  local x, y = fixedWindowPosition(5, gameHeight - (10 + offset * 20))
   love.graphics.rectangle("fill", x, y, gameWidth - 80, 5)
   
   love.graphics.setColor(255/255, 0/255, 0/255)
@@ -43,7 +43,7 @@ renderHealthBar = function (entity)
   local font = love.graphics.newFont(10)
   love.graphics.setFont(font)
   
-  x, y = fixedWindowPosition(5, gameHeight - 30)
+  x, y = fixedWindowPosition(5, gameHeight - (25 + offset * 20))
   love.graphics.printf(entity.name, x, y, 50, "left")
 end
 

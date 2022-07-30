@@ -48,6 +48,7 @@ function Boss:new (x, y)
   entity.height = 32
   entity.imagePath = "images/entities/placeholder32.png"
   entity.equippedWeapon = BurstFire:new(entity, seconds(1.0))
+  entity.isBoss = true
   
   table.insert(entity.extraWeapons, Shotgun:new(entity))
   setmetatable(entity, self)

@@ -239,7 +239,9 @@ for i = 1, #tileArray do
     end
   end
   
-  bullets = {}
+  bullets         = {}
+  screenText      = {}
+  player.statuses = {}
   
   maskCanvas = love.graphics.newCanvas(TILE_SIZE * MAP_WIDTH, TILE_SIZE * MAP_HEIGHT)
   jsonFile:close()

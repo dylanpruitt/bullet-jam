@@ -20,7 +20,6 @@ function SlowStatus:update ()
   if self.framesLeft < 50 then
     self.parent.speedCap = self.parent.speedCap + (self.originalSpeedCap / 100)
   end
-  print((self.parent.speedCap / self.originalSpeedCap), "%")
 end
 
 function SlowStatus:onStatusEnd ()

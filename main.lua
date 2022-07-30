@@ -15,6 +15,7 @@ require('screenText')
 require('game')
 require('gameVariables')
 require('entities.slime')
+require('entities.sludge')
 require('entities.infoBubble')
 require('statuses.slow')
 
@@ -87,8 +88,7 @@ function love.keypressed(key)
     table.insert(entities, Slime:new(getMousePosition()))
   end
   if key == 'r' then
-    local x, y = getMousePosition()
-    table.insert(entities, InfoBubble:new(x, y, "Use left/right click to shoot."))
+    table.insert(entities, Sludge:new(getMousePosition()))
   end
   if key == 'p' then
     player:addStatus(SlowStatus:new(player, 150))
@@ -135,7 +135,9 @@ function love.update(dt)
     if player.health <= 0 then
       loadPlayerData("saves/autosave")
       player.health = player.maxHealth
-      bullets = {}
+      bullets         = {}
+      screenText      = {}
+      player.statuses = {}
     end
     
     collectgarbage("collect")
@@ -180,7 +182,14 @@ function love.draw()
     renderFrgdEntities()
     renderScreenText()
     drawUI()
-    if TEST then if #entities > 1 then renderHealthBar(entities[2]) end end
+    
+    local numBosses = 0
+    for i = 1, #entities do
+      if entities[i].isBoss then
+        renderHealthBar(entities[i], numBosses) 
+        numBosses = numBosses + 1
+      end
+    end
     
     if timeElapsed > 0 and frame == 0 then
       love.graphics.print("FPS: " .. string.format("%.1f", (1 / timeElapsed)), 50, 50)
