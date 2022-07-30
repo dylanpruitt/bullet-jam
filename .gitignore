@@ -1,0 +1,6 @@
+# Ignore saves/mods folders
+mods/
+saves/
+maps/
+builder.bat
+*.dll
